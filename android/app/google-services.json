@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "254097906881",
+    "firebase_url": "https://medical-exam-ap-default-rtdb.firebaseio.com",
+    "project_id": "medical-exam-ap",
+    "storage_bucket": "medical-exam-ap.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254097906881:android:fbe7f96a2f58d34eb90840",
+        "android_client_info": {
+          "package_name": "com.medical.exam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "254097906881-n453g633hnfvihjtt7umkeclopjrslr9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.medical.exam",
+            "certificate_hash": "3f9bb1fe5f5575f3c8685f4b15ec116d28e8956c"
+          }
+        },
+        {
+          "client_id": "254097906881-8irtkf4kp4jqkc2k9o0hcmdbf6f5scll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4O7KkgswvrmCFEmnlxNOE3ffbymNKFwI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "254097906881-8irtkf4kp4jqkc2k9o0hcmdbf6f5scll.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

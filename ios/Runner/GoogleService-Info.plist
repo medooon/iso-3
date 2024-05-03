@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>254097906881-39uu5tcn967s4atsce3m7p95kvc39etk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.254097906881-39uu5tcn967s4atsce3m7p95kvc39etk</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>254097906881-canl30ag6hlom5f0dh06h5rhb9d17qi1.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBzwrJ5NRaYK6CL9OT2U3xJJbLKKhq0Imc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>254097906881</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.medical.exam</string>
+	<key>PROJECT_ID</key>
+	<string>medical-exam-ap</string>
+	<key>STORAGE_BUCKET</key>
+	<string>medical-exam-ap.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:254097906881:ios:7b3d3214f41923b7b90840</string>
+	<key>DATABASE_URL</key>
+	<string>https://medical-exam-ap-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
