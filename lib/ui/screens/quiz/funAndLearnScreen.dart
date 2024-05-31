@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -14,7 +12,8 @@ import 'package:flutterquiz/utils/constants/string_labels.dart';
 import 'package:flutterquiz/utils/ui_utils.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:ios_insecure_screen_detector/ios_insecure_screen_detector.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
+import 'dart:io' show Platform;
+
 
 class FunAndLearnScreen extends StatefulWidget {
   final QuizTypes quizType;
@@ -40,50 +39,10 @@ class FunAndLearnScreen extends StatefulWidget {
   }
 }
 
-class _FunAndLearnScreen extends State<FunAndLearnScreen> with WidgetsBindingObserver {
+class _FunAndLearnScreen extends State<FunAndLearnScreen>
+    with TickerProviderStateMixin {
   final double topPartHeightPercentage = 0.275;
   final double userDetailsHeightPercentage = 0.115;
-  IosInsecureScreenDetector? _iosInsecureScreenDetector;
-  late bool isScreenRecordingInIos = false;
-
-  @override
-  void initState() {
-    super.initState();
-    WakelockPlus.enable();
-    WidgetsBinding.instance.addObserver(this);
-
-    if (Platform.isIOS) {
-      initScreenshotAndScreenRecordDetectorInIos();
-    } else {
-      FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-    }
-  }
-
-  void initScreenshotAndScreenRecordDetectorInIos() async {
-    _iosInsecureScreenDetector = IosInsecureScreenDetector();
-    await _iosInsecureScreenDetector?.initialize();
-    _iosInsecureScreenDetector?.addListener(
-      iosScreenshotCallback, iosScreenRecordCallback);
-  }
-
-  void iosScreenshotCallback() {
-    print("Screenshot detected!");
-  }
-
-  void iosScreenRecordCallback() {
-    setState(() {
-      isScreenRecordingInIos = true;
-    });
-  }
-
-  @override
-  void dispose() {
-    _iosInsecureScreenDetector?.dispose();
-    if (Platform.isAndroid) {
-      FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
-    }
-    super.dispose();
-  }
 
   void navigateToQuestionScreen() {
     Navigator.of(context).pushReplacementNamed(Routes.quiz, arguments: {
@@ -129,8 +88,17 @@ class _FunAndLearnScreen extends State<FunAndLearnScreen> with WidgetsBindingObs
         horizontal: MediaQuery.of(context).size.width * UiUtils.hzMarginPct,
       ),
       child: SingleChildScrollView(
-        // padding: const EdgeInsets.only(bottom: 100)
-        child: Html(data: widget.comprehension.text),
+        // padding: const EdgeInsets.only(bottom: 100),
+        child: Html(
+          style: {
+            "body": Style(
+              color: Theme.of(context).colorScheme.onTertiary,
+              fontWeight: FontWeights.regular,
+              fontSize: FontSize(18),
+            )
+          },
+          data: widget.comprehension.detail,
+        ),
       ),
     );
   }
@@ -138,28 +106,84 @@ class _FunAndLearnScreen extends State<FunAndLearnScreen> with WidgetsBindingObs
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: AppLocalization.of(context)!.getTranslatedValues(funAndLearn)!,
-        showBackButton: true,
-        showLanguageButton: false,
+      appBar: QAppBar(
+        roundedAppBar: false,
+        title: Text(widget.comprehension.title!),
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: Stack(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: _buildParagraph(),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: _buildStartButton(),
-                ),
-              ],
-            ),
+      body: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: _buildParagraph(),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: _buildStartButton(),
           ),
         ],
+      ),
+    );
+  }
+}
+class FunAndLearnScreen extends StatefulWidget {
+  @override
+  _FunAndLearnScreenState createState() => _FunAndLearnScreenState();
+}
+
+class _FunAndLearnScreenState extends State<FunAndLearnScreen> {
+  IosInsecureScreenDetector? _iosInsecureScreenDetector;
+  late bool isScreenRecordingInIos = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _secureScreen();
+  }
+
+  Future<void> _secureScreen() async {
+    if (Platform.isAndroid) {
+      await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+    } else if (Platform.isIOS) {
+      _iosInsecureScreenDetector = IosInsecureScreenDetector();
+      await _iosInsecureScreenDetector?.initialize();
+      _iosInsecureScreenDetector?.addListener(
+        iosScreenshotCallback,
+        iosScreenRecordCallback,
+      );
+    }
+  }
+
+  void iosScreenshotCallback() {
+    // Handle screenshot detection
+    print("Screenshot taken");
+  }
+
+  void iosScreenRecordCallback(bool isRecording) {
+    setState(() {
+      isScreenRecordingInIos = isRecording;
+    });
+    // Handle screen recording detection
+    print("Screen recording: $isRecording");
+  }
+
+  @override
+  void dispose() {
+    if (Platform.isAndroid) {
+      FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+    } else if (Platform.isIOS) {
+      _iosInsecureScreenDetector?.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Fun and Learn Screen'),
+      ),
+      body: Center(
+        child: Text('This is the fun and learn screen'),
       ),
     );
   }
