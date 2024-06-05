@@ -95,30 +95,6 @@ class _FunAndLearnScreenState extends State<FunAndLearnScreen> with WidgetsBindi
     });
   }
 
-  Widget _buildStartButton() {
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: 30.0,
-        left: MediaQuery.of(context).size.width * UiUtils.hzMarginPct,
-        right: MediaQuery.of(context).size.width * UiUtils.hzMarginPct,
-      ),
-      child: CustomRoundedButton(
-        widthPercentage: MediaQuery.of(context).size.width,
-        backgroundColor: Theme.of(context).primaryColor,
-        buttonTitle:
-            AppLocalization.of(context)!.getTranslatedValues(letsStart)!,
-        radius: 8,
-        onTap: navigateToQuestionScreen,
-        titleColor: Theme.of(context).colorScheme.background,
-        showBorder: false,
-        height: 58.0,
-        elevation: 5.0,
-        textSize: 18,
-        fontWeight: FontWeights.semiBold,
-      ),
-    );
-  }
-
   Widget _buildParagraph() {
     return Container(
       decoration: BoxDecoration(
@@ -130,7 +106,6 @@ class _FunAndLearnScreenState extends State<FunAndLearnScreen> with WidgetsBindi
         horizontal: MediaQuery.of(context).size.width * UiUtils.hzMarginPct,
       ),
       child: SingleChildScrollView(
-        // padding: const EdgeInsets.only(bottom: 100),
         child: Html(
           style: {
             "body": Style(
@@ -152,18 +127,11 @@ class _FunAndLearnScreenState extends State<FunAndLearnScreen> with WidgetsBindi
         roundedAppBar: false,
         title: Text(widget.comprehension.title!),
       ),
-      body: Stack(
-        children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: _buildParagraph(),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: _buildStartButton(),
-          ),
-        ],
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: _buildParagraph(),
       ),
     );
   }
 }
+
