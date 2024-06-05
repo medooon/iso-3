@@ -9,7 +9,6 @@ import 'package:flutterquiz/app/routes.dart';
 import 'package:flutterquiz/features/quiz/models/comprehension.dart';
 import 'package:flutterquiz/features/quiz/models/quizType.dart';
 import 'package:flutterquiz/ui/widgets/customAppbar.dart';
-import 'package:flutterquiz/ui/widgets/customRoundedButton.dart';
 import 'package:flutterquiz/utils/constants/fonts.dart';
 import 'package:flutterquiz/utils/constants/string_labels.dart';
 import 'package:flutterquiz/utils/ui_utils.dart';
@@ -86,22 +85,12 @@ class _FunAndLearnScreenState extends State<FunAndLearnScreen> with WidgetsBindi
     super.dispose();
   }
 
-  void navigateToQuestionScreen() {
-    Navigator.of(context).pushReplacementNamed(Routes.quiz, arguments: {
-      "numberOfPlayer": 1,
-      "quizType": QuizTypes.funAndLearn,
-      "comprehension": widget.comprehension,
-      "quizName": "Fun 'N'Learn",
-    });
-  }
-
   Widget _buildParagraph() {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(10),
       ),
-      height: MediaQuery.of(context).size.height * .75,
       margin: EdgeInsets.symmetric(
         horizontal: MediaQuery.of(context).size.width * UiUtils.hzMarginPct,
       ),
@@ -134,4 +123,3 @@ class _FunAndLearnScreenState extends State<FunAndLearnScreen> with WidgetsBindi
     );
   }
 }
-
